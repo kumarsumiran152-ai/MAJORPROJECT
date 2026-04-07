@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<body>
+    
+   <!-- <form method = "GET" action = "/listings/new">
+        <button>Add New</button>
+      </form>-->
+    <style>
+      #filters {
+       margin-left: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: centre;
+         
+      }
+      
+
+      .filter{
+        text-align: center;
+         margin-right: 3rem;
+        margin-top: 3rem;
+        opacity: 0.7;
+       
+      }
+
+.filter:hover{
+  opacity:1;
+  cursor:pointer;
+}
+
+
+    </style>
+
+      <div id="filters">
+  <div class = "filter">
+  <div><i class = "fa-solid fa-fire"></i></div>
+<p>Trending</p>
+</div>
+      
+  <div class = "filter">
+  <div><i class = "fa-solid fa-bed"></i></div>
+<p>Rooms</p>
+</div>
+
+  <div class = "filter">
+  <div><i class = "fa-solid fa-mountain-city"></i></div>
+<p>Iconic Cities</p>
+</div>
+<div class = "filter">
+  <div><i class = "fa-brands fa-fort-awesome"></i></div>
+<p>Castles</p>
+</div>
+<div class = "filter">
+  <div><i class = "fa-solid fa-person-swimming"></i></div>
+<p>Amazing pool</p>
+</div>
+<div class = "filter">
+  <div><i class = "fa-solid fa-campground"></i></div>
+<p>Farms</p>
+</div>
+<div class = "filter">
+  <div><i class = "fa-regular fa-snowflake"></i></div>
+<p>Artic</p>
+</div>
+</div>
+
+
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-col-sm-1 mt-3">
+  <% for(let listing of allListings){ %>
+    <a href="/listings/<%= listing._id%>" class="listing-link">
+      <div class="card col listing-card" style="width: 20rem">
+
+        <img src="<%= listing.image?.url || listing.image %>" 
+     class="card-img-top" 
+     alt="<%= listing.title %>" 
+     style="height:20rem; object-fit:cover;"/>
+        
+        <div class="card-body">
+          <p class="card-text">
+            <b><%= listing.title %></b> <br>
+            &#8377;<%= listing.price?.toLocaleString("en-IN") %> /night
+          </p>
+        </div>
+
+      </div>
+    </a>
+  <% } %>
+</div>
+    
+</body>
+</html>

@@ -1,0 +1,186 @@
+<% layout("/layouts/boilerplate") %>
+  <div class="row mt-2">
+    <div class="col-8 offset-2 ">
+    <h3 class = "i"><%=listing.title%> </h3>
+    </div>
+    <div class="card col-6 offset-3 show-car listing-card">
+        <img src="<%= listing.image?.url || listing.image %>" 
+     class="card-img-top show-img" 
+     alt="listing_image">
+  <div class="card-body">
+    <p class="card-text">Owned by <i><%= listing.owner?.username.trim()%></i></p>
+        
+<p class = "card-text"><%= listing.description %></p><br>
+<p class = "card-text">
+&#8377;<%=listing.price?.toLocaleString("en-IN")%>
+</p>
+<p class = "card-text"><%= listing.location %><br></p>
+<p class = "card-text"><%= listing.country %></p>
+
+  </div>
+</div>
+
+</br> 
+    <% if (currUser && listing.owner && currUser._id.equals(listing.owner._id)) { %>
+    <div class="btns offset-3 mb-5">
+     <a href = "/listings/<%= listing._id%>/edit" class="btn btn-dark edit-btn">Edit</a>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE"  class="d-inline ms-3">
+        <button class="btn btn-dark">Delete</button>
+    </form>
+    </div>
+  <% } %>
+  </div>
+ 
+<div class = "col-8 offset-3 mb-3">
+  <hr/>
+  <% if(currUser) {%>
+  <h4>Leave a Review</h4>
+  <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class = "needs-validation">
+</form>   
+   
+
+    <div class = "mb-3 mt-3">
+        <label for = "rating"> Rating</label>
+   
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/starability@2.4.2/starability-all.min.css"/>
+
+<style>
+.star-rating {
+  direction: rtl;
+  display: inline-flex;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: gold;
+}
+
+.star-rating input:checked ~ label {
+  color: gold;
+}
+</style>
+
+<form action="/listings/<%= listing._id %>/reviews" method="POST">
+
+  <label>Rating:</label>
+
+  <div class="star-rating">
+    <input type="radio" id="5-stars" name="review[rating]" value="5" required/>
+    <label for="5-stars">★</label>
+
+    <input type="radio" id="4-stars" name="review[rating]" value="4"/>
+    <label for="4-stars">★</label>
+
+    <input type="radio" id="3-stars" name="review[rating]" value="3"/>
+    <label for="3-stars">★</label>
+
+    <input type="radio" id="2-stars" name="review[rating]" value="2"/>
+    <label for="2-stars">★</label>
+
+    <input type="radio" id="1-star" name="review[rating]" value="1"/>
+    <label for="1-star">★</label>
+  </div>
+
+  <br><br>
+
+  <div class="mb-3 mt-3">
+    <label for="comment" class="form-label">Comments</label>
+
+      <textarea 
+      name="review[comment]"
+      id = "comment"
+      cols = "30"
+      rows = "5"
+      class = "form-control"
+      required
+      ></textarea>
+      <div class = "
+      invalid-feedback">
+        Please add some comments for review
+      </div>
+    </div>
+    <button class = "btn btn-outline-dark">Submit</button>
+  </form>
+</div>
+<hr/>
+<% } %>
+
+
+
+<p><h4>ALL Reviews</h4></p>
+<div class="row">
+
+  <% for(review of listing.reviews) { %>
+    <div class="card col-5 ms-3 mb-3 p-3">
+      <div class = "card p-3 shadow border">
+      <div class = "card-body">
+       <h5 class = "card-title">@<%= review.author.username %></h5>
+        <!-- ⭐ STARS (NEW) -->
+          <p class="card-text" style="font-size: 20px;">
+            <% for(let i = 1; i <= 5; i++) { %>
+              <% if(i <= review.rating) { %>
+                <span style="color: gold;">★</span>
+              <% } else { %>
+                <span style="color: #ccc;">★</span>
+              <% } %>
+            <% } %>
+          </p>
+       <p class = "card-text"><%= review.comment %></p>
+       <p class = "card-text"><%= review.rating %>stars</p>
+         
+  <p class="starability-result card-text" data-rating="<%= review.rating %>">
+  
+  </p>
+       <form 
+       class = "mb-3" 
+       method = "POST"
+       action = "/listings/<%= listing._id %>/reviews/<%= review._id%>?_method=DELETE">
+       
+        <button class = "btn btn-sm btn-dark">Delete</button>
+       </form>
+    </div>
+    </div>
+
+    </div>
+<% } %>
+  </div>
+
+  </div>
+
+<div id="map" style="height: 400px;"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    let coords = [77.21, 28.66]; // default Delhi
+
+    <% if (listing.geometry && listing.geometry.coordinates) { %>
+        coords = <%- JSON.stringify(listing.geometry.coordinates) %>;
+    <% } %>
+
+    const lat = coords[1];
+    const lng = coords[0];
+
+    const map = L.map('map').setView([lat, lng], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+        .bindPopup("Listing Location")
+        .openPopup();
+});
+</script>
