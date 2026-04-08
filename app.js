@@ -47,6 +47,8 @@ app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
 
+console.log("ENV CHECK:", process.env.ATLASDB_URL);
+
 
 const store = MongoStore.create({
   mongoUrl:dbUrl,
@@ -113,7 +115,12 @@ app.use((req, res, next) => {
 
 app.use("/listings" , listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 app.use("/" , userRouter);
+
+
 
 app.all( /(.*)/,(req,res,next) => {
     next(new ExpressError(404,"Page Not Found!"));
@@ -129,6 +136,8 @@ let{ statusCode = 500,message = "something went wrong!"} = err;
    
 });
 
-app.listen(8080,()=> {
-    console.log("server is listining on port 8080");
-}); 
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+  console.log("server is listening on port " + PORT);
+});

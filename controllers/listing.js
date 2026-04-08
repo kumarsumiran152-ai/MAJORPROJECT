@@ -145,6 +145,7 @@ module.exports.destroyListing = async (req, res) => {
             { location: { $regex: query, $options: "i" } },
             { title: { $regex: query, $options: "i" } },
             
+            
         ]
     });
 
