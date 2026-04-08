@@ -3,7 +3,12 @@
     height : 5rem;
     background-color : white;
 }
-
+.navbar-collapse {
+    background-color : white;
+}
+body {
+    padding-top: 5 rem;
+}
 .fa-compass{
     color: #fe424d;
     font-size: 2rem;

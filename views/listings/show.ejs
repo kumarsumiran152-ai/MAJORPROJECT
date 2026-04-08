@@ -119,15 +119,23 @@
 
 
 
+
 <p><h4>ALL Reviews</h4></p>
 <div class="row">
 
   <% for(review of listing.reviews) { %>
-    <div class="card col-5 ms-3 mb-3 p-3">
-      <div class = "card p-3 shadow border">
-      <div class = "card-body">
-       <h5 class = "card-title">@<%= review.author.username %></h5>
-        <!-- ⭐ STARS (NEW) -->
+
+    <!-- CHANGE: replaced col-5 ms-3 with responsive grid -->
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+      <!-- CHANGE: removed extra nested card + added h-100 -->
+      <div class="card p-3 shadow border h-100">
+        <div class="card-body">
+
+          <!-- CHANGE: added text-break to prevent username overflow -->
+          <h5 class="card-title text-break">@<%= review.author.username %></h5>
+
+          <!-- ⭐ STARS (same logic, no change) -->
           <p class="card-text" style="font-size: 20px;">
             <% for(let i = 1; i <= 5; i++) { %>
               <% if(i <= review.rating) { %>
@@ -137,25 +145,32 @@
               <% } %>
             <% } %>
           </p>
-       <p class = "card-text"><%= review.comment %></p>
-       <p class = "card-text"><%= review.rating %>stars</p>
-         
-  <p class="starability-result card-text" data-rating="<%= review.rating %>">
-  
-  </p>
-       <form 
-       class = "mb-3" 
-       method = "POST"
-       action = "/listings/<%= listing._id %>/reviews/<%= review._id%>?_method=DELETE">
-       
-        <button class = "btn btn-sm btn-dark">Delete</button>
-       </form>
-    </div>
-    </div>
+
+          <!-- CHANGE: added text-break to prevent comment overflow -->
+          <p class="card-text text-break"><%= review.comment %></p>
+
+          <p class="card-text"><%= review.rating %> stars</p>
+
+          <!-- same starability (no change) -->
+          <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+
+          <form 
+            class="mb-3" 
+            method="POST"
+            action="/listings/<%= listing._id %>/reviews/<%= review._id%>?_method=DELETE">
+            
+            <!-- CHANGE: added w-100 for better mobile button -->
+            <button class="btn btn-sm btn-dark ">Delete</button>
+          </form>
+
+        </div>
+      </div>
 
     </div>
-<% } %>
-  </div>
+
+  <% } %>
+
+</div>
 
   </div>
 
