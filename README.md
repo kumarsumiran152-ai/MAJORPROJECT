@@ -79,40 +79,28 @@ This project showcases strong full-stack development skills, including authentic
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-
 #### Desktop View
 [![Home Desktop](./images/home-desktop.png)](./images/home-desktop.png)
 
 #### Mobile View
-[![Home Mobile](./images/home-Mobile.jpg)](./images/home-Mobile.jpg)
-
----
+[![Home Mobile](./images/home-mobile.jpg)](./images/home-mobile.jpg)
 
 ### 🗺️ Map Page
-
 #### Desktop View
 [![Map Desktop](./images/map-desktop.png)](./images/map-desktop.png)
 
 #### Mobile View
-[![Map Mobile](./images/map-Mobile.jpg)](./images/map-Mobile.jpg)
-
----
+[![Map Mobile](./images/map-mobile.jpg)](./images/map-mobile.jpg)
 
 ### 🔍 View Page
-
 #### Desktop View
 [![View Desktop](./images/view-desktop.png)](./images/view-desktop.png)
 
 #### Mobile View
-[![View Mobile](./images/view-Mobile.jpg)](./images/view-Mobile.jpg)
-
----
+[![View Mobile](./images/view-mobile.jpg)](./images/view-mobile.jpg)
 
 ### ⭐ Leave Review
 [![Leave Review](./images/leave-review.png)](./images/leave-review.png)
-
----
-
 ## ⚙️ Installation
 
 Follow these steps to run the project locally:
