@@ -163,16 +163,27 @@ http://localhost:8080/listing
 
 wanderlust/
 │── models/
+
 │── routes/
+
 │── controllers/
+
 │── views/
+
 │── public/
+
 │── utils/
+
 │── images/
+
 │── app.js
+
 │── cloudConfig.js
+
 │── schema.js
+
 │── package.json
+
 │── .env
 
 
