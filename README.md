@@ -178,9 +178,13 @@ wanderlust/
 🚀 Future Enhancements
 
 -Payment gateway integration
+
 -Booking system
+
 -Wishlist feature
+
 -Advanced filters and sorting
+
 -User profile management
 
 
